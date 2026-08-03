@@ -1,0 +1,989 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pasalo Cars PH — Ang Sasakyan Mo, Kalahati Na Naabot</title>
+<meta name="description" content="Verified assume-balance car marketplace sa Cavite at Timog Katagalugan. Walang scam, walang paikot-ikot, notarized Deed of Assignment sa bawat unit.">
+
+<!-- ===== GOOGLE FONTS ===== -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Permanent+Marker&family=Work+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+<style>
+/* ============================================================
+   TOKEN SYSTEM
+   Color: obsidian bg / asphalt surface / signal gold / deep gold /
+          plate blue / bone white
+   Type: Anton (display, signage energy) + Work Sans (body) +
+         Permanent Marker (stamp/urgency) + Space Mono (dashboard digits)
+   ============================================================ */
+:root{
+  --obsidian:#0A0C0F;
+  --asphalt:#15181D;
+  --asphalt-2:#1D2128;
+  --signal:#FFC933;
+  --deep-gold:#B9862A;
+  --plate-blue:#25476E;
+  --plate-blue-light:#3E6796;
+  --bone:#F4EFE2;
+  --bone-dim:#B9B3A4;
+  --red-stamp:#C4432E;
+  --line:rgba(244,239,226,0.10);
+  --radius:2px;
+}
+
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  background:var(--obsidian);
+  color:var(--bone);
+  font-family:'Work Sans',sans-serif;
+  line-height:1.55;
+  overflow-x:hidden;
+}
+img{max-width:100%;display:block;}
+a{color:inherit;text-decoration:none;}
+.container{max-width:1180px;margin:0 auto;padding:0 24px;}
+.eyebrow{
+  font-family:'Space Mono',monospace;
+  font-size:12px;
+  letter-spacing:0.18em;
+  text-transform:uppercase;
+  color:var(--signal);
+}
+h1,h2,h3{font-family:'Anton',sans-serif;font-weight:400;letter-spacing:0.01em;text-transform:uppercase;line-height:1.05;}
+.accent{color:var(--signal);}
+.blue{color:var(--plate-blue-light);}
+
+@media (prefers-reduced-motion: reduce){
+  *{animation-duration:0.001ms !important;animation-iteration-count:1 !important;transition-duration:0.001ms !important;}
+}
+
+/* focus visibility */
+a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible{
+  outline:2px solid var(--signal);
+  outline-offset:3px;
+}
+
+/* ============================================================
+   NAV
+   ============================================================ */
+header{
+  position:sticky;top:0;z-index:100;
+  background:rgba(10,12,15,0.88);
+  backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line);
+}
+.nav{display:flex;align-items:center;justify-content:space-between;padding:16px 24px;}
+.logo{font-family:'Anton',sans-serif;font-size:20px;letter-spacing:0.02em;text-transform:uppercase;}
+.logo span{color:var(--signal);}
+.nav-links{display:flex;gap:32px;font-size:14px;font-weight:600;}
+.nav-links a{opacity:0.8;transition:opacity .2s;}
+.nav-links a:hover{opacity:1;color:var(--signal);}
+.nav-cta{
+  background:var(--signal);color:var(--obsidian);
+  padding:10px 20px;font-weight:800;font-size:13px;
+  letter-spacing:0.03em;text-transform:uppercase;
+  border-radius:var(--radius);
+}
+.nav-cta:hover{background:var(--bone);}
+.burger{display:none;background:none;border:none;color:var(--bone);font-size:24px;cursor:pointer;}
+
+@media(max-width:860px){
+  .nav-links{display:none;}
+  .burger{display:block;}
+}
+
+/* ============================================================
+   HERO — dashboard/gauge cluster as signature
+   ============================================================ */
+.hero{
+  position:relative;
+  padding:80px 0 60px;
+  background:
+    radial-gradient(ellipse 900px 500px at 80% -10%, rgba(37,71,110,0.35), transparent 60%),
+    radial-gradient(ellipse 700px 400px at -10% 110%, rgba(185,134,42,0.15), transparent 60%);
+  border-bottom:1px solid var(--line);
+}
+.hero-grid{
+  display:grid;grid-template-columns:1.1fr 0.9fr;gap:56px;align-items:center;
+}
+@media(max-width:900px){.hero-grid{grid-template-columns:1fr;gap:40px;}}
+
+.hero h1{font-size:clamp(38px,6vw,64px);margin:14px 0 20px;}
+.hero-sub{font-size:17px;color:var(--bone-dim);max-width:480px;margin-bottom:32px;}
+.hero-ctas{display:flex;gap:14px;flex-wrap:wrap;}
+.btn{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:15px 26px;font-weight:800;font-size:14px;
+  letter-spacing:0.03em;text-transform:uppercase;
+  border-radius:var(--radius);border:1px solid transparent;
+  cursor:pointer;transition:transform .15s ease, background .2s;
+}
+.btn-primary{background:var(--signal);color:var(--obsidian);}
+.btn-primary:hover{transform:translateY(-2px);background:#FFD966;}
+.btn-outline{background:transparent;color:var(--bone);border-color:var(--line);}
+.btn-outline:hover{border-color:var(--signal);color:var(--signal);}
+
+/* Gauge cluster */
+.gauge-cluster{
+  background:var(--asphalt);
+  border:1px solid var(--line);
+  border-radius:8px;
+  padding:28px 26px 22px;
+  box-shadow:0 30px 60px -20px rgba(0,0,0,0.6);
+}
+.gauge-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px;}
+.gauge-label{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:0.12em;color:var(--bone-dim);text-transform:uppercase;}
+.gauge-dot{width:8px;height:8px;border-radius:50%;background:#4CAF6B;box-shadow:0 0 8px #4CAF6B;}
+.gauge-face{position:relative;width:100%;aspect-ratio:1.6/1;}
+svg.dial{width:100%;height:100%;overflow:visible;}
+.dial-track{fill:none;stroke:var(--asphalt-2);stroke-width:14;}
+.dial-progress{
+  fill:none;stroke:url(#gaugeGrad);stroke-width:14;stroke-linecap:round;
+  stroke-dasharray:251;stroke-dashoffset:251;
+  animation:sweep 1.8s cubic-bezier(.2,.8,.2,1) 0.3s forwards;
+}
+@keyframes sweep{to{stroke-dashoffset:38;}}
+.dial-readout{
+  position:absolute;bottom:6%;left:50%;transform:translateX(-50%);
+  text-align:center;
+}
+.dial-number{font-family:'Space Mono',monospace;font-weight:700;font-size:clamp(26px,4vw,36px);color:var(--signal);}
+.dial-unit{font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:var(--bone-dim);}
+.gauge-foot{
+  display:flex;justify-content:space-between;margin-top:16px;
+  border-top:1px solid var(--line);padding-top:14px;
+  font-family:'Space Mono',monospace;font-size:11px;color:var(--bone-dim);
+}
+.gauge-foot b{color:var(--bone);font-weight:700;}
+
+/* ============================================================
+   TRUST STRIP — dashboard readout
+   ============================================================ */
+.trust-strip{
+  background:var(--asphalt);
+  border-bottom:1px solid var(--line);
+  padding:22px 0;
+}
+.trust-grid{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:20px;text-align:center;
+}
+@media(max-width:760px){.trust-grid{grid-template-columns:repeat(2,1fr);row-gap:24px;}}
+.trust-num{font-family:'Anton',sans-serif;font-size:clamp(22px,3vw,32px);color:var(--signal);}
+.trust-cap{font-size:12px;color:var(--bone-dim);text-transform:uppercase;letter-spacing:0.04em;margin-top:2px;}
+
+/* ============================================================
+   SECTION shell
+   ============================================================ */
+section{padding:88px 0;}
+.section-head{max-width:640px;margin-bottom:52px;}
+.section-head h2{font-size:clamp(28px,4vw,40px);margin-top:10px;}
+.section-head p{color:var(--bone-dim);margin-top:14px;font-size:16px;}
+
+/* ============================================================
+   HOW IT WORKS — plate-style step markers
+   Each step is labeled like a real CALABARZON province plate,
+   which doubles as a wink to "saan ka galing sa Cavite corridor"
+   ============================================================ */
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;}
+@media(max-width:900px){.steps{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:560px){.steps{grid-template-columns:1fr;}}
+.step-card{
+  background:var(--asphalt);border:1px solid var(--line);border-radius:6px;
+  padding:22px 20px 24px;position:relative;
+  transition:border-color .2s, transform .2s;
+}
+.step-card:hover{border-color:var(--signal);transform:translateY(-4px);}
+.plate{
+  display:inline-block;
+  font-family:'Space Mono',monospace;font-weight:700;font-size:13px;letter-spacing:0.06em;
+  background:var(--bone);color:var(--plate-blue);
+  padding:5px 10px;border-radius:3px;border:2px solid var(--plate-blue);
+  margin-bottom:16px;
+}
+.step-card h3{font-size:19px;margin-bottom:10px;letter-spacing:0.01em;}
+.step-card p{font-size:14.5px;color:var(--bone-dim);}
+
+/* ============================================================
+   VEHICLE SHOWCASE
+   ============================================================ */
+.vehicle-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;}
+@media(max-width:900px){.vehicle-grid{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:600px){.vehicle-grid{grid-template-columns:1fr;}}
+.vcard{
+  background:var(--asphalt);border:1px solid var(--line);border-radius:6px;overflow:hidden;
+  transition:transform .2s, border-color .2s;
+}
+.vcard:hover{transform:translateY(-4px);border-color:var(--signal);}
+.vcard-media{
+  aspect-ratio:16/10;
+  background:linear-gradient(135deg,var(--asphalt-2),var(--obsidian));
+  display:flex;align-items:center;justify-content:center;position:relative;
+}
+.vcard-media svg{width:58%;opacity:0.9;}
+.vcard-tag{
+  position:absolute;top:12px;left:12px;
+  background:var(--signal);color:var(--obsidian);
+  font-size:10.5px;font-weight:800;letter-spacing:0.05em;text-transform:uppercase;
+  padding:4px 9px;border-radius:2px;
+}
+.vcard-body{padding:18px 18px 20px;}
+.vcard-body h3{font-family:'Work Sans',sans-serif;font-weight:700;font-size:16px;text-transform:none;margin-bottom:6px;}
+.vcard-meta{font-size:12.5px;color:var(--bone-dim);margin-bottom:14px;font-family:'Space Mono',monospace;}
+.vcard-price{display:flex;justify-content:space-between;align-items:baseline;border-top:1px solid var(--line);padding-top:12px;}
+.vcard-price .amt{font-family:'Anton',sans-serif;font-size:20px;color:var(--signal);}
+.vcard-price .lbl{font-size:11px;color:var(--bone-dim);text-transform:uppercase;}
+.vcard-cta{
+  display:block;text-align:center;margin-top:14px;
+  background:var(--asphalt-2);border:1px solid var(--line);
+  padding:10px;font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:0.03em;
+  border-radius:3px;transition:background .2s,border-color .2s;
+}
+.vcard-cta:hover{background:var(--signal);color:var(--obsidian);border-color:var(--signal);}
+.showcase-note{margin-top:20px;font-size:13px;color:var(--bone-dim);font-style:italic;}
+
+/* ============================================================
+   CALCULATOR — the equity meter, interactive
+   ============================================================ */
+.calc-wrap{
+  background:var(--asphalt);border:1px solid var(--line);border-radius:10px;
+  display:grid;grid-template-columns:1fr 1fr;overflow:hidden;
+}
+@media(max-width:860px){.calc-wrap{grid-template-columns:1fr;}}
+.calc-form{padding:40px;}
+.field{margin-bottom:22px;}
+.field label{display:block;font-size:12.5px;text-transform:uppercase;letter-spacing:0.05em;color:var(--bone-dim);margin-bottom:8px;}
+.field input, .field select{
+  width:100%;background:var(--obsidian);border:1px solid var(--line);
+  color:var(--bone);padding:13px 14px;border-radius:4px;font-size:15px;
+  font-family:'Space Mono',monospace;
+}
+.field input:focus, .field select:focus{border-color:var(--signal);outline:none;}
+.calc-result{
+  background:linear-gradient(160deg, var(--plate-blue) 0%, #16283d 100%);
+  padding:40px;display:flex;flex-direction:column;justify-content:center;
+}
+.calc-result .eyebrow{color:var(--bone);}
+.result-num{font-family:'Anton',sans-serif;font-size:clamp(38px,5vw,54px);color:var(--signal);margin:12px 0 6px;}
+.result-sub{font-size:14px;color:var(--bone-dim);margin-bottom:26px;}
+.result-bar{height:8px;background:rgba(244,239,226,0.15);border-radius:4px;overflow:hidden;margin-bottom:10px;}
+.result-bar-fill{height:100%;background:var(--signal);width:0%;transition:width .6s ease;}
+.result-legend{display:flex;justify-content:space-between;font-size:11px;color:var(--bone-dim);font-family:'Space Mono',monospace;}
+
+/* ============================================================
+   TRUST / VERIFICATION — inspection sticker motif
+   ============================================================ */
+.trust-block{display:grid;grid-template-columns:0.9fr 1.1fr;gap:56px;align-items:center;}
+@media(max-width:900px){.trust-block{grid-template-columns:1fr;}}
+.sticker{
+  width:220px;height:220px;border-radius:50%;
+  border:3px dashed var(--signal);
+  display:flex;align-items:center;justify-content:center;
+  margin:0 auto;position:relative;
+}
+.sticker-inner{
+  width:180px;height:180px;border-radius:50%;background:var(--asphalt);
+  border:1px solid var(--line);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;
+  padding:14px;
+}
+.sticker-inner .big{font-family:'Anton',sans-serif;font-size:30px;color:var(--signal);line-height:1;}
+.sticker-inner .small{font-size:10.5px;letter-spacing:0.08em;text-transform:uppercase;color:var(--bone-dim);margin-top:6px;}
+.checklist{list-style:none;}
+.checklist li{
+  display:flex;gap:14px;padding:16px 0;border-bottom:1px solid var(--line);
+}
+.checklist li:last-child{border-bottom:none;}
+.check-mark{
+  flex:0 0 auto;width:26px;height:26px;border-radius:50%;
+  background:rgba(255,201,51,0.12);border:1px solid var(--signal);
+  color:var(--signal);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;
+}
+.checklist h4{font-size:15.5px;font-weight:700;margin-bottom:3px;}
+.checklist p{font-size:13.5px;color:var(--bone-dim);}
+
+/* ============================================================
+   TESTIMONIALS
+   ============================================================ */
+.testi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;}
+@media(max-width:860px){.testi-grid{grid-template-columns:1fr;}}
+.testi{
+  background:var(--asphalt);border:1px solid var(--line);border-radius:6px;padding:26px 24px;
+  position:relative;
+}
+.testi .quote-mark{font-family:'Anton',sans-serif;font-size:44px;color:var(--signal);opacity:0.35;line-height:1;}
+.testi p{font-size:14.5px;color:var(--bone-dim);margin:10px 0 18px;}
+.testi-who{display:flex;align-items:center;gap:10px;font-size:13px;}
+.testi-who .avatar{width:34px;height:34px;border-radius:50%;background:var(--plate-blue);display:flex;align-items:center;justify-content:center;font-family:'Anton',sans-serif;font-size:13px;}
+.testi-who b{display:block;font-weight:700;}
+.testi-who span{color:var(--bone-dim);font-size:12px;}
+
+/* ============================================================
+   URGENCY — stamped deals
+   ============================================================ */
+.urgency{background:var(--asphalt);border-top:1px solid var(--line);border-bottom:1px solid var(--line);}
+.deal-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;}
+@media(max-width:860px){.deal-grid{grid-template-columns:repeat(2,1fr);}}
+.deal-card{
+  background:var(--obsidian);border:1px solid var(--line);border-radius:6px;
+  padding:16px;position:relative;overflow:hidden;
+}
+.deal-card .plate{margin-bottom:10px;}
+.deal-card h4{font-size:14.5px;font-weight:700;}
+.deal-card p{font-size:12px;color:var(--bone-dim);margin-top:4px;}
+.stamp{
+  position:absolute;top:14px;right:-30px;
+  transform:rotate(28deg);
+  font-family:'Permanent Marker',cursive;
+  color:var(--red-stamp);
+  border:3px solid var(--red-stamp);
+  padding:4px 34px;font-size:14px;letter-spacing:0.05em;
+  opacity:0.9;
+}
+
+/* ============================================================
+   FINAL CTA — lead intake, no backend needed (Messenger/WhatsApp handoff)
+   ============================================================ */
+.final-cta{
+  background:
+    radial-gradient(ellipse 800px 400px at 50% 0%, rgba(255,201,51,0.10), transparent 65%);
+}
+.cta-wrap{
+  background:var(--asphalt);border:1px solid var(--line);border-radius:10px;
+  padding:52px;display:grid;grid-template-columns:1fr 1fr;gap:48px;
+}
+@media(max-width:860px){.cta-wrap{grid-template-columns:1fr;padding:32px 24px;}}
+.cta-copy h2{font-size:clamp(26px,4vw,36px);margin-bottom:16px;}
+.cta-copy p{color:var(--bone-dim);margin-bottom:24px;font-size:15px;}
+.cta-copy ul{list-style:none;font-size:14px;color:var(--bone-dim);}
+.cta-copy li{padding:6px 0;}
+.cta-copy li::before{content:"— ";color:var(--signal);}
+.lead-form .field{margin-bottom:16px;}
+.radio-row{display:flex;gap:10px;flex-wrap:wrap;}
+.radio-pill{
+  border:1px solid var(--line);border-radius:20px;padding:8px 16px;font-size:13px;cursor:pointer;
+  transition:all .15s;
+}
+.radio-pill input{display:none;}
+.radio-pill.active{background:var(--signal);color:var(--obsidian);border-color:var(--signal);font-weight:700;}
+.submit-btn{width:100%;margin-top:6px;}
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+footer{padding:48px 0 32px;border-top:1px solid var(--line);}
+.foot-grid{display:flex;justify-content:space-between;flex-wrap:wrap;gap:24px;margin-bottom:32px;}
+.foot-brand .logo{margin-bottom:10px;}
+.foot-brand p{font-size:13px;color:var(--bone-dim);max-width:280px;}
+.foot-col h5{font-size:12px;text-transform:uppercase;letter-spacing:0.08em;color:var(--bone-dim);margin-bottom:12px;}
+.foot-col a{display:block;font-size:13.5px;padding:5px 0;color:var(--bone-dim);transition:color .2s;}
+.foot-col a:hover{color:var(--signal);}
+.foot-bottom{
+  display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;
+  border-top:1px solid var(--line);padding-top:20px;font-size:12px;color:var(--bone-dim);
+}
+
+/* Sticky mobile CTA bar */
+.sticky-cta{
+  position:fixed;bottom:0;left:0;right:0;z-index:200;
+  background:var(--asphalt);border-top:1px solid var(--line);
+  padding:12px 16px;display:none;
+  justify-content:space-between;align-items:center;gap:12px;
+}
+@media(max-width:640px){.sticky-cta{display:flex;} body{padding-bottom:64px;}}
+.sticky-cta .btn{padding:12px 18px;font-size:13px;width:100%;justify-content:center;}
+</style>
+</head>
+<body>
+
+<!-- ============================================================
+     NAV
+     ============================================================ -->
+<header>
+  <div class="nav container">
+    <div class="logo">PASALO <span>CARS</span> PH</div>
+    <nav class="nav-links">
+      <a href="#paano">Paano Gumagana</a>
+      <a href="#units">Mga Units</a>
+      <a href="#calculator">Savings Calculator</a>
+      <a href="#trust">Bakit Kami</a>
+    </nav>
+    <a href="#lead-form" class="nav-cta">Mag-inquire</a>
+  </div>
+</header>
+
+<!-- ============================================================
+     HERO
+     ============================================================ -->
+<section class="hero">
+  <div class="container hero-grid">
+    <div>
+      <span class="eyebrow">Assume-Balance Marketplace · Cavite &amp; CALABARZON</span>
+      <h1>Ang Susunod Mong Sasakyan, <span class="accent">Kalahati Na Naabot.</span></h1>
+      <p class="hero-sub">Sa pasalo, hindi ka nagsisimula sa zero. May equity ka na agad sa unit — verified seller, notarized Deed of Assignment, walang paikot-ikot na papeles.</p>
+      <div class="hero-ctas">
+        <a href="#units" class="btn btn-primary">Tingnan ang mga Available Units</a>
+        <a href="#lead-form" class="btn btn-outline">I-check ang Eligibility Ko</a>
+      </div>
+    </div>
+
+    <!-- SIGNATURE ELEMENT: equity gauge cluster, dashboard-style -->
+    <div class="gauge-cluster">
+      <div class="gauge-top">
+        <span class="gauge-label">Average Equity Meter</span>
+        <span class="gauge-dot"></span>
+      </div>
+      <div class="gauge-face">
+        <svg class="dial" viewBox="0 0 200 130">
+          <defs>
+            <linearGradient id="gaugeGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stop-color="#B9862A"/>
+              <stop offset="100%" stop-color="#FFC933"/>
+            </linearGradient>
+          </defs>
+          <path class="dial-track" d="M20,110 A80,80 0 0 1 180,110" pathLength="251"/>
+          <path class="dial-progress" d="M20,110 A80,80 0 0 1 180,110" pathLength="251"/>
+        </svg>
+        <div class="dial-readout">
+          <div class="dial-number">₱148,500</div>
+          <div class="dial-unit">Avg. Equity vs. Brand New</div>
+        </div>
+      </div>
+      <div class="gauge-foot">
+        <span>Source: <b>40+ closed pasalo deals</b></span>
+        <span><b>Silang, Cavite</b></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     TRUST STRIP
+     ============================================================ -->
+<div class="trust-strip">
+  <div class="container trust-grid">
+    <div><div class="trust-num">40+</div><div class="trust-cap">Units Na-Assume</div></div>
+    <div><div class="trust-num">72 hrs</div><div class="trust-cap">Avg. Buyer Match Time</div></div>
+    <div><div class="trust-num">100%</div><div class="trust-cap">Notarized Documentation</div></div>
+    <div><div class="trust-num">0</div><div class="trust-cap">Hidden Add-On Fees</div></div>
+  </div>
+</div>
+
+<!-- ============================================================
+     HOW IT WORKS — province-plate step markers
+     ============================================================ -->
+<section id="paano">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">Paano Gumagana</span>
+      <h2>Apat na Hakbang Papunta sa Susi Mo</h2>
+      <p>Bawat hakbang ay may kaakibat na dokumento — walang verbal agreement lang. Ito ang proseso na sinusundan namin sa bawat pasalo unit.</p>
+    </div>
+    <div class="steps">
+      <div class="step-card">
+        <span class="plate">CAV · 01</span>
+        <h3>I-verify ang Unit</h3>
+        <p>Kino-cross-check namin ang chattel mortgage, OR/CR, at outstanding balance bago ito ilista.</p>
+      </div>
+      <div class="step-card">
+        <span class="plate">LAG · 02</span>
+        <h3>I-match ang Buyer</h3>
+        <p>Batay sa budget at monthly capacity mo, ipapakita namin ang mga unit na kaya mong i-assume.</p>
+      </div>
+      <div class="step-card">
+        <span class="plate">BTG · 03</span>
+        <h3>Deed of Assignment</h3>
+        <p>Notarized na kasunduan sa pagitan ng buyer at seller, — malinaw sa lahat.</p>
+      </div>
+      <div class="step-card">
+        <span class="plate">QZN · 04</span>
+        <h3>Turnover ng Susi</h3>
+        <p>Kompleto ang paperwork bago mag-turnover — ikaw na ang bagong nagbabayad, ikaw na ang may-ari.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     VEHICLE SHOWCASE
+     ============================================================ -->
+<section id="units" style="background:var(--asphalt);border-top:1px solid var(--line);border-bottom:1px solid var(--line);">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">Mga Available Units</span>
+      <h2>Piling Units Ngayong Linggo</h2>
+      <p>Piling verified units na available para sa assume-balance ngayong linggo.</p>
+    </div>
+    <div class="vehicle-grid" id="vehicleGrid">
+
+      <!-- FALLBACK CARDS: shown instantly on load, replaced automatically once
+           live data arrives from Supabase (see script + config near end of file).
+           If Supabase fetch fails or returns nothing, these stay as-is. -->
+      <div class="vcard">
+        <div class="vcard-media">
+          <span class="vcard-tag" style="background:var(--red-stamp);color:var(--bone);">Reserved</span>
+          <img src="mustang-mache-2026.jpeg" alt="Ford Mustang Mach-E 2026" style="width:100%;height:100%;object-fit:cover;">
+        </div>
+        <div class="vcard-body">
+          <h3>Ford Mustang Mach-E 2026</h3>
+          <div class="vcard-meta">Under 100 KM · Fully Electric · AT</div>
+          <div class="vcard-price">
+            <div><div class="lbl">Monthly Assume</div><div class="amt">₱54,287</div></div>
+            <div><div class="lbl">Remaining</div><div class="amt" style="font-size:14px;">60 mos</div></div>
+          </div>
+          <p style="font-size:12.5px;color:var(--bone-dim);margin-top:10px;">SRP ₱3,499,000 · Cash out ₱1,250,000 (negotiable) · First due Aug 28</p>
+          <a href="#lead-form" class="vcard-cta">Mag-inquire</a>
+        </div>
+      </div>
+
+      <div class="vcard">
+        <div class="vcard-media">
+          <span class="vcard-tag">Cash Out ₱130K</span>
+          <img src="dongfeng-utour-2025.jpeg" alt="Dongfeng Forthing U-Tour 2025" style="width:100%;height:100%;object-fit:cover;">
+        </div>
+        <div class="vcard-body">
+          <h3>Dongfeng Forthing U-Tour 1.5T Luxury 2025</h3>
+          <div class="vcard-meta">18,000+ KM · AT · White · Captain Seats</div>
+          <div class="vcard-price">
+            <div><div class="lbl">Monthly Assume</div><div class="amt">₱28,608</div></div>
+            <div><div class="lbl">Remaining</div><div class="amt" style="font-size:14px;">42 mos</div></div>
+          </div>
+          <p style="font-size:12.5px;color:var(--bone-dim);margin-top:10px;">18 months paid · Due every 20th · Next due Aug 20</p>
+          <a href="#lead-form" class="vcard-cta">Mag-inquire</a>
+        </div>
+      </div>
+
+      <div class="vcard">
+        <div class="vcard-media">
+          <span class="vcard-tag">Sport Variant</span>
+          <img src="ford-everest-sport-2025.jpeg" alt="Ford Everest Sport 2025" style="width:100%;height:100%;object-fit:cover;">
+        </div>
+        <div class="vcard-body">
+          <h3>Ford Everest Sport 4x2 2025</h3>
+          <div class="vcard-meta">12,000 KM · AT</div>
+          <div class="vcard-price">
+            <div><div class="lbl">Monthly Assume</div><div class="amt">₱47,564</div></div>
+            <div><div class="lbl">Remaining</div><div class="amt" style="font-size:14px;">43 mos</div></div>
+          </div>
+          <p style="font-size:12.5px;color:var(--bone-dim);margin-top:10px;">17 months updated · Due every 2nd · Next due Sept 2 · Cash out: PM</p>
+          <a href="#lead-form" class="vcard-cta">Mag-inquire</a>
+        </div>
+      </div>
+
+    </div>
+    <p class="showcase-note" id="showcaseNote">Live units mula sa Pasalo Cars PH. Kapag naka-configure na ang Supabase key, awtomatiko nang mag-a-update ang listing na ito.</p>
+  </div>
+</section>
+
+<!-- ============================================================
+     CALCULATOR — the equity meter, live
+     ============================================================ -->
+<section id="calculator">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">Savings Calculator</span>
+      <h2>Tingnan ang Puwede Mong Matipid</h2>
+      <p>Ilagay ang presyo ng katulad na unit kung bago, at ang halagang babayaran mo sa assume-balance. Makikita agad ang equity meter.</p>
+    </div>
+
+    <div class="calc-wrap">
+      <div class="calc-form">
+        <div class="field">
+          <label for="newPrice">Presyo ng Katulad na Unit (Brand New)</label>
+          <input type="text" id="newPrice" inputmode="numeric" placeholder="hal. 950000" value="950000">
+        </div>
+        <div class="field">
+          <label for="assumePrice">Kabuuang Babayaran sa Pasalo (Downpayment + Balance)</label>
+          <input type="text" id="assumePrice" inputmode="numeric" placeholder="hal. 610000" value="610000">
+        </div>
+        <div class="field">
+          <label for="monthsLeft">Natitirang Buwan sa Loan</label>
+          <input type="text" id="monthsLeft" inputmode="numeric" placeholder="hal. 34" value="34">
+        </div>
+        <button class="btn btn-primary" style="width:100%;" onclick="computeSavings()">I-compute ang Savings</button>
+      </div>
+      <div class="calc-result">
+        <span class="eyebrow">Resulta</span>
+        <div class="result-num" id="savingsOut">₱340,000</div>
+        <div class="result-sub" id="savingsPct">36% na mas mura kumpara sa bagong unit</div>
+        <div class="result-bar"><div class="result-bar-fill" id="savingsBar" style="width:36%;"></div></div>
+        <div class="result-legend">
+          <span>Pasalo Price</span>
+          <span>Brand New Price</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+function peso(n){
+  return '₱' + Math.round(n).toLocaleString('en-PH');
+}
+function computeSavings(){
+  var newPrice = parseFloat(document.getElementById('newPrice').value.replace(/[^0-9.]/g,'')) || 0;
+  var assumePrice = parseFloat(document.getElementById('assumePrice').value.replace(/[^0-9.]/g,'')) || 0;
+  var savings = newPrice - assumePrice;
+  var pct = newPrice > 0 ? Math.max(0, Math.min(100, (savings / newPrice) * 100)) : 0;
+  document.getElementById('savingsOut').textContent = peso(savings > 0 ? savings : 0);
+  document.getElementById('savingsPct').textContent = Math.round(pct) + '% na mas mura kumpara sa bagong unit';
+  document.getElementById('savingsBar').style.width = pct + '%';
+}
+window.addEventListener('DOMContentLoaded', computeSavings);
+</script>
+
+<!-- ============================================================
+     TRUST / VERIFICATION
+     ============================================================ -->
+<section id="trust" style="background:var(--asphalt);border-top:1px solid var(--line);border-bottom:1px solid var(--line);">
+  <div class="container trust-block">
+    <div class="sticker">
+      <div class="sticker-inner">
+        <div class="big">100%</div>
+        <div class="small">Verified &amp;<br>Notarized</div>
+      </div>
+    </div>
+    <div>
+      <span class="eyebrow">Bakit Kami</span>
+      <h2 style="font-size:clamp(26px,4vw,36px);margin:10px 0 22px;">Walang Bagong Kotse na Kasing-Ligtas Nito</h2>
+      <ul class="checklist">
+        <li>
+          <span class="check-mark">✓</span>
+          <div><h4>Verified Chattel Mortgage</h4><p>Kino-check namin ang financing company records bago i-approve ang listing.</p></div>
+        </li>
+        <li>
+          <span class="check-mark">✓</span>
+          <div><h4>Notarized Deed of Assignment</h4><p>Legal na dokumento — hindi lang usapan sa Messenger.</p></div>
+        </li>
+        <li>
+          <span class="check-mark">✓</span>
+          <div><h4>No Hidden Add-On Fees</h4><p>Ang presyong nakikita mo sa listing ang babayaran mo — wala nang sorpresa.</p></div>
+        </li>
+        <li>
+          <span class="check-mark">✓</span>
+          <div><h4>Local Support sa Cavite</h4><p>Physical na presensya sa Silang — hindi ka nakikipag-usap sa hindi mo makikita.</p></div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     TESTIMONIALS
+     ============================================================ -->
+<section>
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">Mga Naka-Assume Na</span>
+      <h2>Sila, Nauna Nang Nag-Pasalo</h2>
+    </div>
+    <div class="testi-grid">
+      <div class="testi">
+        <div class="quote-mark">“</div>
+        <p>Akala ko matagal ang papeles, pero less than a week na-turnover na sa akin ang unit. Malinaw lahat ng dokumento.</p>
+        <div class="testi-who"><div class="avatar">RG</div><div><b>Rommel G.</b><span>Dasmariñas, Cavite</span></div></div>
+      </div>
+      <div class="testi">
+        <div class="quote-mark">“</div>
+        <p>Nakatipid ako ng halos 150K kumpara sa presyo ng bagong unit. Same model din, mas mababa lang ang natitirang balance.</p>
+        <div class="testi-who"><div class="avatar">JC</div><div><b>Jen C.</b><span>Silang, Cavite</span></div></div>
+      </div>
+      <div class="testi">
+        <div class="quote-mark">“</div>
+        <p>Sinabihan agad ako kung ano ang totoong outstanding balance bago pa ako pumirma. Walang paligoy-ligoy.</p>
+        <div class="testi-who"><div class="avatar">MA</div><div><b>Marco A.</b><span>Tagaytay</span></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     URGENCY — recently closed
+     ============================================================ -->
+<section class="urgency">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">Kaka-Close Lang</span>
+      <h2>Mabilis Umaalis ang mga Verified Units</h2>
+    </div>
+    <div class="deal-grid">
+      <div class="deal-card">
+        <span class="stamp">SOLD</span>
+        <span class="plate" style="font-size:11px;">CAV · 118</span>
+        <h4>Honda City 2020</h4>
+        <p>Na-match sa loob ng 3 araw</p>
+      </div>
+      <div class="deal-card">
+        <span class="stamp">SOLD</span>
+        <span class="plate" style="font-size:11px;">CAV · 119</span>
+        <h4>Nissan Navara 2019</h4>
+        <p>Na-match sa loob ng 5 araw</p>
+      </div>
+      <div class="deal-card">
+        <span class="plate" style="font-size:11px;">CAV · 120</span>
+        <h4>Suzuki Ertiga 2022</h4>
+        <p>2 interesadong buyer ngayon</p>
+      </div>
+      <div class="deal-card">
+        <span class="plate" style="font-size:11px;">CAV · 121</span>
+        <h4>Chery Tiggo 2 2021</h4>
+        <p>Bagong lista ngayong linggo</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     FINAL CTA — lead intake (Messenger handoff, no backend)
+     ============================================================ -->
+<section class="final-cta" id="lead-form">
+  <div class="container">
+    <div class="cta-wrap">
+      <div class="cta-copy">
+        <span class="eyebrow">Susunod na Hakbang</span>
+        <h2>I-check Natin Kung Kaya Mong I-assume</h2>
+        <p>Punan ang form — direkta itong bubuo ng message, ready na i-send. Piliin mo na lang kung saan mo gustong dumiretso: Messenger o WhatsApp.</p>
+        <ul>
+          <li>Sasagutin within 24 hours</li>
+          <li>Walang commitment, libreng eligibility check</li>
+          <li>Local team sa Silang, Cavite</li>
+        </ul>
+      </div>
+      <form class="lead-form" id="leadForm" onsubmit="return false;">
+        <div class="field">
+          <label for="leadName">Buong Pangalan</label>
+          <input type="text" id="leadName" required placeholder="Juan Dela Cruz">
+        </div>
+        <div class="field">
+          <label for="leadPhone">Mobile Number</label>
+          <input type="tel" id="leadPhone" required placeholder="09XX XXX XXXX">
+        </div>
+        <div class="field">
+          <label>Budget Range (Monthly Assume)</label>
+          <div class="radio-row" id="budgetRow">
+            <label class="radio-pill"><input type="radio" name="budget" value="Under ₱10K">Under ₱10K</label>
+            <label class="radio-pill"><input type="radio" name="budget" value="₱10K–₱15K">₱10K–₱15K</label>
+            <label class="radio-pill"><input type="radio" name="budget" value="₱15K–₱25K">₱15K–₱25K</label>
+            <label class="radio-pill"><input type="radio" name="budget" value="₱25K+">₱25K+</label>
+          </div>
+        </div>
+        <div class="field">
+          <label for="leadNotes">Preferred na Vehicle Type (Optional)</label>
+          <input type="text" id="leadNotes" placeholder="hal. Sedan, SUV, Pickup">
+        </div>
+        <div class="field" style="margin-bottom:0;">
+          <label>I-send Via</label>
+          <div style="display:flex;gap:10px;flex-wrap:wrap;">
+            <button type="button" class="btn btn-primary" style="flex:1;min-width:150px;justify-content:center;" onclick="sendInquiry('messenger')">Messenger</button>
+            <button type="button" class="btn btn-outline" style="flex:1;min-width:150px;justify-content:center;" onclick="sendInquiry('whatsapp')">WhatsApp</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<script>
+// Radio pill active state
+document.querySelectorAll('#budgetRow .radio-pill').forEach(function(pill){
+  pill.addEventListener('click', function(){
+    document.querySelectorAll('#budgetRow .radio-pill').forEach(function(p){p.classList.remove('active');});
+    pill.classList.add('active');
+  });
+});
+
+// EDIT ME: replace with your real Facebook Page username or WhatsApp number
+var MESSENGER_PAGE_USERNAME = "PasaloCarsPH21"; // used for m.me/ link
+var WHATSAPP_NUMBER = "639950369117"; // no plus sign, PH format
+
+function sendInquiry(channel){
+  var nameEl = document.getElementById('leadName');
+  var phoneEl = document.getElementById('leadPhone');
+  var name = nameEl.value.trim();
+  var phone = phoneEl.value.trim();
+
+  // Manual required-field check since buttons are type="button", not submit
+  if (!name){ nameEl.focus(); return false; }
+  if (!phone){ phoneEl.focus(); return false; }
+
+  var budgetEl = document.querySelector('#budgetRow input[name="budget"]:checked');
+  var budget = budgetEl ? budgetEl.value : "Hindi nakalagay";
+  var notes = document.getElementById('leadNotes').value.trim() || "Wala";
+
+  var msg = "Hi Pasalo Cars PH! Gusto ko mag-inquire.\n" +
+            "Pangalan: " + name + "\n" +
+            "Mobile: " + phone + "\n" +
+            "Budget (monthly assume): " + budget + "\n" +
+            "Preferred vehicle: " + notes;
+
+  var url;
+  if (channel === 'whatsapp') {
+    url = "https://wa.me/" + WHATSAPP_NUMBER + "?text=" + encodeURIComponent(msg);
+  } else {
+    url = "https://m.me/" + MESSENGER_PAGE_USERNAME + "?text=" + encodeURIComponent(msg);
+  }
+  window.open(url, "_blank");
+  return false;
+}
+</script>
+
+<!-- ============================================================
+     FOOTER
+     ============================================================ -->
+<footer>
+  <div class="container">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <div class="logo">PASALO <span>CARS</span> PH</div>
+        <p>Verified assume-balance car marketplace. Silang, Cavite. Naglilingkod sa buong CALABARZON.</p>
+      </div>
+      <div class="foot-col">
+        <h5>Explore</h5>
+        <a href="#paano">Paano Gumagana</a>
+        <a href="#units">Mga Units</a>
+        <a href="#calculator">Calculator</a>
+        <a href="#trust">Bakit Kami</a>
+      </div>
+      <div class="foot-col">
+        <h5>Kontak</h5>
+        <a href="#lead-form">Mag-inquire</a>
+        <a href="https://m.me/PasaloCarsPH21" target="_blank" rel="noopener">Messenger</a>
+        <a href="tel:+639950369117">Tawagan Kami</a>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 Pasalo Cars PH. Silang, Cavite.</span>
+      <span>Made with care para sa Pilipinong buyer at seller.</span>
+    </div>
+  </div>
+</footer>
+
+<!-- Sticky mobile CTA -->
+<div class="sticky-cta">
+  <a href="#lead-form" class="btn btn-primary">I-check ang Eligibility Ko</a>
+</div>
+
+<!-- ============================================================
+     LIVE LISTINGS — pulls real units from your buyer-seller-matcher
+     Supabase project (nhssuoytlanpfdsqhjhy) instead of the sample cards.
+
+     TO ACTIVATE, edit the two lines below marked EDIT ME:
+     1. SUPABASE_URL      — already filled in for your project ref
+     2. SUPABASE_ANON_KEY — get this from Supabase dashboard:
+        Project Settings → API → "anon / public" key (NOT the service_role key,
+        that one is secret and should never go in a public HTML file)
+
+     Column mapping assumes a "listings" table with columns like:
+       make, model, year, mileage_km, transmission, city,
+       monthly_price, remaining_months, image_url, status
+     If your actual column names differ, just adjust the field.xxx
+     references inside renderCard() below — everything else stays the same.
+     ============================================================ -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+(function(){
+  var SUPABASE_URL = "https://nhssuoytlanpfdsqhjhy.supabase.co"; // EDIT ME if different
+  var SUPABASE_ANON_KEY = "PASTE_YOUR_ANON_PUBLIC_KEY_HERE"; // EDIT ME
+
+  var noteEl = document.getElementById('showcaseNote');
+
+  if (!SUPABASE_ANON_KEY || SUPABASE_ANON_KEY.indexOf("PASTE_") === 0) {
+    if (noteEl) noteEl.textContent = "Sample listings ang ipinapakita — i-set pa ang Supabase anon key sa HTML file para live ang units.";
+    return; // keep fallback cards, don't attempt fetch
+  }
+
+  var client = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+  function peso(n){
+    if (n === null || n === undefined) return "—";
+    return '₱' + Math.round(n).toLocaleString('en-PH');
+  }
+
+  function carSvg(){
+    return '<svg viewBox="0 0 120 60" fill="none" xmlns="http://www.w3.org/2000/svg">' +
+      '<path d="M10 42 L20 24 Q26 16 40 16 L80 16 Q92 16 98 24 L110 42 L110 48 L10 48 Z" stroke="#FFC933" stroke-width="2.5"/>' +
+      '<circle cx="32" cy="48" r="8" stroke="#FFC933" stroke-width="2.5"/>' +
+      '<circle cx="88" cy="48" r="8" stroke="#FFC933" stroke-width="2.5"/>' +
+      '<line x1="42" y1="24" x2="42" y2="16" stroke="#FFC933" stroke-width="2"/>' +
+      '<line x1="78" y1="24" x2="78" y2="16" stroke="#FFC933" stroke-width="2"/></svg>';
+  }
+
+  function renderCard(row){
+    var title = [row.make, row.model, row.year].filter(Boolean).join(' ');
+    var meta = [
+      row.mileage_km ? row.mileage_km.toLocaleString('en-PH') + ' KM' : null,
+      row.transmission,
+      row.city
+    ].filter(Boolean).join(' · ');
+    var media = row.image_url
+      ? '<img src="' + row.image_url + '" alt="' + title + '" style="width:100%;height:100%;object-fit:cover;">'
+      : carSvg();
+    var tag = row.status === 'new' ? 'Bago Lista' : (row.status || 'Available');
+
+    return '' +
+      '<div class="vcard">' +
+        '<div class="vcard-media"><span class="vcard-tag">' + tag + '</span>' + media + '</div>' +
+        '<div class="vcard-body">' +
+          '<h3>' + title + '</h3>' +
+          '<div class="vcard-meta">' + meta + '</div>' +
+          '<div class="vcard-price">' +
+            '<div><div class="lbl">Monthly Assume</div><div class="amt">' + peso(row.monthly_price) + '</div></div>' +
+            '<div><div class="lbl">Remaining</div><div class="amt" style="font-size:14px;">' + (row.remaining_months || '—') + ' mos</div></div>' +
+          '</div>' +
+          '<a href="#lead-form" class="vcard-cta">Mag-inquire</a>' +
+        '</div>' +
+      '</div>';
+  }
+
+  client
+    .from('listings')
+    .select('*')
+    .eq('status', 'available')
+    .order('created_at', { ascending: false })
+    .limit(6)
+    .then(function(res){
+      if (res.error) {
+        console.error('Supabase fetch error:', res.error);
+        if (noteEl) noteEl.textContent = "Hindi na-load ang live listings (" + res.error.message + ") — sample cards muna ang nakalagay.";
+        return;
+      }
+      var rows = res.data || [];
+      if (rows.length === 0) {
+        if (noteEl) noteEl.textContent = "Wala pang available listings sa database — sample cards muna ang nakalagay.";
+        return;
+      }
+      var grid = document.getElementById('vehicleGrid');
+      grid.innerHTML = rows.map(renderCard).join('');
+      if (noteEl) noteEl.textContent = "Live na mula sa listings mo — awtomatikong nag-a-update kapag may bagong idinagdag sa Supabase.";
+    });
+})();
+</script>
+
+<!-- ============================================================
+     ANALYTICS — matches your existing site's tracking IDs
+     Uncomment and these are ready to go as-is.
+     ============================================================ -->
+<!--
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GCSWRCWCE7"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-GCSWRCWCE7');
+</script>
+<script>
+  !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+  n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+  n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+  t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+  document,'script','https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init', '1825550832189607');
+  fbq('track', 'PageView');
+</script>
+-->
+
+</body>
+</html>
